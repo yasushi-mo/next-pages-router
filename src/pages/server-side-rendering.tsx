@@ -1,9 +1,15 @@
 import Head from "next/head";
 import { SAMPLE_API_ENDPOINT } from "./api";
+import { FetchedRandomJoke } from "@/components/FetchedRandomJoke";
+import { RandomJoke } from "@/types";
 
 export const TITLE = "Server-Side Rendering (SSR)";
 
-export default function ServerSideRendering({ jsonData }: { jsonData: any }) {
+export default function ServerSideRendering({
+  randomJoke,
+}: {
+  randomJoke: RandomJoke;
+}) {
   return (
     <>
       <Head>
@@ -14,24 +20,18 @@ export default function ServerSideRendering({ jsonData }: { jsonData: any }) {
         Data fetched on the server-side at <b>each</b> request before sending to
         the client.
       </p>
-      <hr />
-      <p>Fetched Data from Random Joke API</p>
-      <ul>
-        <li>Type: {jsonData?.type}</li>
-        <li>Setup: {jsonData?.setup}</li>
-        <li>Punchline: {jsonData?.punchline}</li>
-      </ul>
+      <FetchedRandomJoke randomJoke={randomJoke} />
     </>
   );
 }
 
 export async function getServerSideProps() {
   const response = await fetch(SAMPLE_API_ENDPOINT);
-  const jsonData = await response.json();
+  const randomJoke = await response.json();
 
   return {
     props: {
-      jsonData, // will be passed to the page component as props
+      randomJoke, // will be passed to the page component as props
     },
   };
 }

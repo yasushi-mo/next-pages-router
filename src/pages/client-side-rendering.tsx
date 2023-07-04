@@ -25,6 +25,8 @@ export default function ClientSideRendering() {
       </Head>
       <h1>{TITLE}</h1>
       <p>Data fetched on the client-side only.</p>
+      <hr />
+      <p>Fetched Data from Random Joke API</p>
       <ul>
         <li>Type: {joke?.type}</li>
         <li>Setup: {joke?.setup}</li>

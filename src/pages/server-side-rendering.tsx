@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { title } from "process";
 
-const TITLE = "Server-Side Rendering (SSR)";
+export const TITLE = "Server-Side Rendering (SSR)";
 
 export default function ClientSideRendering() {
   return (

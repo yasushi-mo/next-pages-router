@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { title } from "process";
 
-const TITLE = "Incremental Static Regeneration (ISR)";
+export const TITLE = "Incremental Static Regeneration (ISR)";
 
 export default function IncrementalStaticRegeneration() {
   return (

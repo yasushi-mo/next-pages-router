@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { title } from "process";
 
-const TITLE = "Static-Site Generation (SSG)";
+export const TITLE = "Static-Site Generation (SSG)";
 
 export default function StaticSiteGeneration() {
   return (

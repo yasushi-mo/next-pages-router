@@ -1,22 +1,20 @@
+import { FetchedRandomJoke } from "@/components/FetchedRandomJoke";
 import { SAMPLE_API_ENDPOINT } from "@/pages/api";
 import { RandomJoke } from "@/types";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 export const TITLE = "Client-Side Rendering (CSR)";
 
 export default function ClientSideRendering() {
-  const [joke, setJoke] = useState<RandomJoke | undefined>(undefined);
+  const {
+    data: randomJoke,
+    error,
+    isLoading,
+  } = useSWR<RandomJoke>(SAMPLE_API_ENDPOINT, fetcher);
 
-  const getData = async () => {
-    const response = await fetch(SAMPLE_API_ENDPOINT);
-    const jsonData = await response.json();
-    setJoke(jsonData);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+  if (error) return <p>Failed to load.</p>;
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <>
@@ -25,13 +23,14 @@ export default function ClientSideRendering() {
       </Head>
       <h1>{TITLE}</h1>
       <p>Data fetched on the client-side only.</p>
-      <hr />
-      <p>Fetched Data from Random Joke API</p>
-      <ul>
-        <li>Type: {joke?.type}</li>
-        <li>Setup: {joke?.setup}</li>
-        <li>Punchline: {joke?.punchline}</li>
-      </ul>
+      <FetchedRandomJoke randomJoke={randomJoke} />
     </>
   );
+}
+
+async function fetcher() {
+  const response = await fetch(SAMPLE_API_ENDPOINT);
+  const randomJoke = await response.json();
+
+  return randomJoke;
 }

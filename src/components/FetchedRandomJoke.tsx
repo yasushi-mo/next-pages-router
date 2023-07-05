@@ -1,6 +1,10 @@
 import { RandomJoke } from "@/types";
 
-export function FetchedRandomJoke({ randomJoke }: { randomJoke: RandomJoke }) {
+export function FetchedRandomJoke({
+  randomJoke,
+}: {
+  randomJoke: RandomJoke | undefined;
+}) {
   return (
     <>
       <hr />

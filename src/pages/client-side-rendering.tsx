@@ -7,14 +7,7 @@ import useSWR from "swr";
 export const TITLE = "Client-Side Rendering (CSR)";
 
 export default function ClientSideRendering() {
-  const {
-    data: randomJoke,
-    error,
-    isLoading,
-  } = useSWR<RandomJoke>(SAMPLE_API_ENDPOINT, fetcher);
-
-  if (error) return <p>Failed to load.</p>;
-  if (isLoading) return <p>Loading...</p>;
+  const { data: randomJoke } = useSWR<RandomJoke>(SAMPLE_API_ENDPOINT, fetcher);
 
   return (
     <>
